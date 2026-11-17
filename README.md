@@ -5,10 +5,10 @@ hit a channel's "can't send another image" rule. One codebase, four ways to use 
 
 | Format | File | Best for |
 |---|---|---|
-| Userscript | `discord-image-guard.user.js` | Tampermonkey / Violentmonkey / Greasemonkey (recommended) |
+| Userscript | `discord-image-guard.user.js` | Tampermonkey / Violentmonkey / Greasemonkey (recommended) | (Under Additional Install Methods Folder)
 | Browser extension | `discord-image-guard-extension.zip` | Chrome / Edge / Brave, toolbar popup settings |
-| Console snippet | `discord-image-guard.console.js` | One-off use: paste into DevTools console |
-| Bookmarklet | `discord-image-guard.bookmarklet.txt` | One click per page load, no install |
+| Console snippet | `discord-image-guard.console.js` | One-off use: paste into DevTools console | (Under Additional Install Methods Folder)
+| Bookmarklet | `discord-image-guard.bookmarklet.txt` | One click per page load, no install | (Under Additional Install Methods Folder)
 
 ## 1. Userscript (Tampermonkey etc.)
 1. Install Tampermonkey (or Violentmonkey) in your browser.
