@@ -1,0 +1,79 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Image Cooldown Guard</title>
+<style>
+  :root { color-scheme: dark; }
+  body { width: 360px; margin: 0; padding: 14px; background: #1e1f22; color: #dbdee1; font: 13px system-ui, sans-serif; }
+  h1 { font-size: 15px; margin: 0 0 10px; }
+  h2 { font-size: 11px; text-transform: uppercase; letter-spacing: .05em; color: #949ba4; margin: 16px 0 6px; }
+  .card { background: #2b2d31; border-radius: 8px; padding: 10px; }
+  .row { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin: 6px 0; }
+  .row label { flex: 1; }
+  input[type=number], select, input[type=text], textarea {
+    background: #1e1f22; color: #dbdee1; border: 1px solid #3f4147; border-radius: 4px; padding: 4px 6px; font: inherit;
+  }
+  input[type=number] { width: 70px; }
+  input[type=text] { width: 150px; }
+  textarea { width: 100%; box-sizing: border-box; height: 70px; font: 11px monospace; }
+  button { background: #5865f2; color: #fff; border: 0; border-radius: 4px; padding: 5px 9px; cursor: pointer; font: inherit; }
+  button.gray { background: #4e5058; }
+  button.red { background: #da373c; }
+  .status { font-weight: 600; }
+  .ok { color: #3ba55d; } .bad { color: #f23f42; } .muted { color: #949ba4; font-weight: 400; }
+  .rule { display: grid; grid-template-columns: 1fr 60px 60px auto; gap: 4px; align-items: center; margin: 4px 0; font-size: 11px; }
+  .rule input { width: 100%; box-sizing: border-box; }
+  .btns { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 8px; }
+  .hint { color: #949ba4; font-size: 11px; margin-top: 4px; }
+</style>
+</head>
+<body>
+  <h1>🖼 Image Cooldown Guard</h1>
+
+  <div class="card">
+    <div id="status" class="status muted">Checking…</div>
+    <div class="btns">
+      <button id="resetChannel" class="gray">Reset this channel</button>
+      <button id="resetAll" class="gray">Reset all history</button>
+    </div>
+  </div>
+
+  <h2>Default rule</h2>
+  <div class="card">
+    <div class="row"><label>Enabled</label><input type="checkbox" id="enabled"></div>
+    <div class="row"><label>Max images…</label><input type="number" id="maxImages" min="1" step="1"></div>
+    <div class="row"><label>…per (minutes)</label><input type="number" id="windowMinutes" min="0.1" step="0.5"></div>
+    <div class="row"><label>Safety buffer (seconds)</label><input type="number" id="bufferSeconds" min="0" step="1"></div>
+    <div class="row"><label>Count</label>
+      <select id="countMode"><option value="images">Images only</option><option value="attachments">Any attachment</option></select>
+    </div>
+    <div class="row"><label>Apply to</label>
+      <select id="scope"><option value="all">All channels</option><option value="listed">Only listed channels</option></select>
+    </div>
+    <div class="row"><label>Show status badge</label><input type="checkbox" id="showBadge"></div>
+    <div class="row"><label>Allow override (Enter twice)</label><input type="checkbox" id="allowOverride"></div>
+  </div>
+
+  <h2>Channel rules</h2>
+  <div class="card">
+    <div class="rule muted"><span>Channel ID</span><span>Max</span><span>Min</span><span></span></div>
+    <div id="rules"></div>
+    <div class="btns">
+      <button id="addCurrent">+ Add current channel</button>
+      <input type="text" id="newId" placeholder="or paste channel ID">
+      <button id="addId" class="gray">Add</button>
+    </div>
+    <div class="hint">Listed channels use their own limits. In "All channels" mode they act as overrides.</div>
+  </div>
+
+  <h2>Advanced: attachment selectors</h2>
+  <div class="card">
+    <textarea id="selectors" spellcheck="false"></textarea>
+    <div class="hint">One CSS selector per line. If Discord changes its markup and detection breaks, edit these. Falls back to blob: previews if none match.</div>
+    <div class="btns"><button id="resetSelectors" class="gray">Restore default selectors</button></div>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>

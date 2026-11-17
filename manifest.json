@@ -1,0 +1,19 @@
+{
+  "manifest_version": 3,
+  "name": "Discord Image Cooldown Guard",
+  "version": "2.0.0",
+  "description": "Limit how many images you send per time window in Discord channels. Configurable per channel.",
+  "permissions": ["storage"],
+  "host_permissions": ["https://discord.com/*"],
+  "action": {
+    "default_title": "Image Cooldown Guard",
+    "default_popup": "popup.html"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://discord.com/*"],
+      "js": ["content.js"],
+      "run_at": "document_idle"
+    }
+  ]
+}
